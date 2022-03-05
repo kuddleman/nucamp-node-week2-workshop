@@ -14,7 +14,6 @@ const partnerSchema = new Schema({
     },
     featured: {
         type: Boolean,
-        required: false
     },
     description: {
         type: String,

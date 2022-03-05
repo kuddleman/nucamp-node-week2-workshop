@@ -1,5 +1,4 @@
 const express = require('express')
-const { textOnly } = require('jade/lib/parser')
 const Partner = require('../models/partner')
 const partnerRouter = express.Router()
 
@@ -20,7 +19,7 @@ partnerRouter.route('/')
         console.log('Partner Created', partner)
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
-        res.json(campsite)
+        res.json(partner)
     })
 })
 .put((req, res) => {
@@ -62,13 +61,15 @@ partnerRouter.route('/:partnerId')
    })
    .catch(err => next(err))
 })
-.delete((req, res) => {
+.delete((req, res, next) => {
     Partner.findByIdAndDelete(req.params.partnerId,)
     .then(response => {
+        console.log("Item deleted")
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
         res.json(response)
     })
+    .catch(err => next(err))
 })
 
 
